@@ -3,6 +3,8 @@
   <component name="ProjectModuleManager">
     <modules>
       <module fileurl="file://$PROJECT_DIR$/그리디 알고리즘/그리디 알고리즘.iml" filepath="$PROJECT_DIR$/그리디 알고리즘/그리디 알고리즘.iml" />
+      <module fileurl="file://$PROJECT_DIR$/깊이-너비 우선탐색/깊이-너비 우선탐색.iml" filepath="$PROJECT_DIR$/깊이-너비 우선탐색/깊이-너비 우선탐색.iml" />
+      <module fileurl="file://$PROJECT_DIR$/수학/수학.iml" filepath="$PROJECT_DIR$/수학/수학.iml" />
     </modules>
   </component>
 </project>
