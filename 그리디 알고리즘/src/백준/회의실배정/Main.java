@@ -1,68 +1,49 @@
 package 백준.회의실배정;
 
-import java.lang.reflect.Array;
+import java.io.BufferedReader;
+import java.io.IOException;
+import java.io.InputStreamReader;
+
 import java.util.Arrays;
 import java.util.Comparator;
-import java.util.Scanner;
 
 public class Main {
-    public static void main(String[] args) {
 
-        Scanner scan = new Scanner(System.in);
-        int meetingCount = scan.nextInt();
+    public static void main(String[] args) throws IOException {
+        BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
+        String countMeeting = br.readLine();
+        int maxLength = Integer.parseInt(countMeeting);
+        int[][] meetingArray = new int[maxLength][2];
 
-        int[][] meetingTime = new int[meetingCount][2];
-
-        for(int i=0 ; i < meetingCount ; i++){
-            meetingTime[i][0] = scan.nextInt();
-            meetingTime[i][1] = scan.nextInt();
+        String[] inputMeetingTime = new String[2];
+        for(int i=0 ; i < Integer.parseInt(countMeeting) ; i++){
+            inputMeetingTime = br.readLine().split(" ");
+           meetingArray[i][0] = Integer.parseInt(inputMeetingTime[0]);
+           meetingArray[i][1] = Integer.parseInt(inputMeetingTime[1]);
         }
-
-        Arrays.sort(meetingTime, new Comparator<int[]>() {
+        
+        // 미팅시간을 먼저 종료하는 순서 대로 재정렬
+        Arrays.sort(meetingArray, new Comparator<int[]>() {
             @Override
             public int compare(int[] o1, int[] o2) {
-                if(o1[0] == o2[0]){
-                    return o1[1] - o2[1];
-                }else{
+                if(o1[1] == o2[1]){
                     return o1[0] - o2[0];
                 }
+                return o1[1] - o2[1];
             }
         });
 
-        for(int i=0 ; i<meetingCount ; i++){
-            for(int j=0 ; j<1 ; j++){
-                System.out.println(meetingTime[i][0] + ", " + meetingTime[i][1]);
+        int resultCount = 0;
+        int prev_end_time = 0;
+
+        for(int i=0 ; i < maxLength ; i++){
+
+            if(prev_end_time <= meetingArray[i][0]){
+                prev_end_time = meetingArray[i][1];
+                resultCount++;
             }
         }
 
-        int num = 0;
-        int beforeNum = 0;
-        int endTime = 0;
-        int count = 0;
-        while(true){
-            if(num == meetingCount){
-                break;
-            }else{
-                int meetingTimeFirst = meetingTime[num][1] - meetingTime[num][0];
-                int meetingTimeSecond = meetingTime[num+1][1] - meetingTime[num+1][0];
-
-                if(meetingTimeFirst <= meetingTimeSecond){
-
-                    endTime = meetingTime[beforeNum][1];
-                    if(endTime <= meetingTime[num+1][0]){
-                        beforeNum = num;
-                        num++;
-                        count++;
-                    }else{
-                        num++;
-                    }
-                }else{
-                    num++;
-                    beforeNum++;
-                }
-            }
-        }
-
-        System.out.println(count);
+        System.out.println(resultCount);
     }
 }
